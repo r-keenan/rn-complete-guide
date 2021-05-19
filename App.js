@@ -7,6 +7,7 @@ import {
   TextInput,
   Button,
   ScrollView,
+  FlatList,
 } from "react-native";
 
 export default function App() {
@@ -19,7 +20,10 @@ export default function App() {
 
   const addGoalHandler = () => {
     // console.log(enteredGoal);
-    setCourseGoals((courseGoals) => [...courseGoals, enteredGoal]);
+    setCourseGoals((courseGoals) => [
+      ...courseGoals,
+      { id: Math.random().toString(), value: enteredGoal },
+    ]);
   };
 
   return (
@@ -34,13 +38,16 @@ export default function App() {
         <Button title="ADD" onPress={addGoalHandler} />
       </View>
       {/* This needs to be added, because scroll content is not enabled by default */}
-      <ScrollView>
-        {courseGoals.map((goal) => (
-          <View key={Math.random()}>
-            <Text style={styles.listItem}>{goal}</Text>
+      {/* data takes an array of key value pairs */}
+      <FlatList
+        keyExtractor={(item, index) => item.id}
+        data={courseGoals}
+        renderItem={(itemData) => (
+          <View>
+            <Text style={styles.listItem}>{itemData.item.value}</Text>
           </View>
-        ))}
-      </ScrollView>
+        )}
+      />
     </View>
   );
 }
