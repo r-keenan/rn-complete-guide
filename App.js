@@ -28,10 +28,8 @@ export default function App() {
       </View>
       <View>
         {courseGoals.map((goal) => (
-          <View>
-            <Text style={styles.listItem} key={Math.random()}>
-              {goal}
-            </Text>
+          <View key={Math.random()}>
+            <Text style={styles.listItem}>{goal}</Text>
           </View>
         ))}
       </View>
@@ -56,6 +54,7 @@ const styles = StyleSheet.create({
   },
   listItem: {
     padding: 10,
+    marginVertical: 10,
     backgroundColor: "#ccc",
     borderColor: "black",
     borderWidth: 2,
